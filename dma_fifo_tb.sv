@@ -325,6 +325,7 @@ module dma_fifo_tb;
         write_data  = 32'hA5A5A5A5;
         write_valid = 1'b1;
         read_ready  = 1'b1;
+        #1;
 
         // Verify the oldest word before the handshake.
         assert (read_valid)
@@ -353,6 +354,7 @@ module dma_fifo_tb;
         write_valid = 1'b0;
         read_ready  = 1'b0;
         write_data  = '0;
+        #1;
 
         // One word entered and one word left, so count must not change.
         assert (count == FIFO_DEPTH)
@@ -402,6 +404,7 @@ module dma_fifo_tb;
 
             write_valid = 1'b0;
             read_ready  = 1'b1;
+            #1;
 
             // Determine which word should currently be at the front.
             if (i < FIFO_DEPTH - 1)
@@ -440,6 +443,7 @@ module dma_fifo_tb;
 
         // Stop requesting reads after consuming the final word.
         read_ready = 1'b0;
+        #1;
 
         // Verify the final empty state.
         assert (count == 0)
@@ -478,6 +482,7 @@ module dma_fifo_tb;
         @(negedge clk);
         write_valid = 1'b0;
         read_ready  = 1'b1;
+        #1;
 
         // The FIFO must not claim that it has valid data.
         assert (!read_valid)
@@ -526,7 +531,7 @@ module dma_fifo_tb;
 
         $display("FIFO underflow-protection test passed");
 
-        $finish;
+        $stop;
     end
 
 endmodule
