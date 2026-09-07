@@ -33,3 +33,9 @@ Information about transfers:
 - MAX_BURST_LEN=16 means our design allows no more than 16 beats per burst. AXIA burst cannot cross a 4KB address boundary. So, next_burst_beats = smallest of total remaining beats, configured 16-beat maximum, and # of beats possible before the next 4KB boundary.
     - The lower 12 bits (2^12 = 4096) represent the offset inside a 4KB page. The upper address bits (ex: address[31:12]) must stay in the same from the start of the burst to the end of the burst.
 - Once calculated, next_burst_beats is stored in burst_beats, representing the expected size of the current burst. beat_count then tracks # of beats from that burst that have actually been received. When the current burst finishes, the module either prepares another burst or asserts done if the entire DMA read command has been completed.
+
+# axi_dma_top_level.sv
+- Coordinates the three data-path modules
+- Captures one external command, sends the source address & length to the read master, and sends the destination address and same length to the write master
+- The read master retrieves words from memory and puts them into the FIFO; the write master removes those words and writes them tot eh destination
+- Top level tracks the two different modules using two pending bits and two done_seen bits, which prevents another command while a transfer is active, combiens errors from both masters, and asserts overall done only after both sides have completed.

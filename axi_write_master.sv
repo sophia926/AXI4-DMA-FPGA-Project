@@ -279,9 +279,10 @@ module axi_write_master #(
             end
 
             else if (b_fire) begin
-                if (m_axi_bresp[1] == 1'b1) begin
-                    error <= 1'b1;
-                end
+                case (m_axi_bresp)
+                    2'b10, 2'b11: error <= 1'b1;
+                    default: ;
+                endcase
 
                 if (bytes_remaining == burst_beats * BYTES_PER_BEAT) begin
                     bytes_remaining <= '0;

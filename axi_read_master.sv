@@ -246,9 +246,11 @@ module axi_read_master #(
             // Increment beat count
             if (r_fire) begin
                 // If response was not okay (10 and 11 are errors), set error
-                if (m_axi_rresp[1]) begin
-                    error <= 1'b1;
-                end
+                case (m_axi_rresp)
+                    2'b10, 2'b11: error <= 1'b1;
+                    default: ;
+                endcase
+
                 beat_count <= beat_count + 1'b1;
 
                 if (beat_count == burst_beats - 1) begin
