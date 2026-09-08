@@ -4,43 +4,43 @@
 
 ## Architecture
 
-DMA command
-↓
-DMA top level
-↓
-AXI ready master
-↓
-(asks source memory for data)
-↓
-Source memory
-↓
-(AXI R data)
-↓
-Synchronous FIFO
-↓
-(buffered data)
-↓
-AXI write master
-↓
-(AXI W data)
-↓
-Destination memory
-↓
-(AXI B response)
-↓
-AXI write master
+DMA command  
+↓  
+DMA top level  
+↓  
+AXI ready master  
+↓  
+(asks source memory for data)  
+↓  
+Source memory  
+↓  
+(AXI R data)  
+↓  
+Synchronous FIFO  
+↓  
+(buffered data)  
+↓  
+AXI write master  
+↓  
+(AXI W data)  
+↓  
+Destination memory  
+↓  
+(AXI B response)  
+↓  
+AXI write master  
 
 
 More simply,
-Source region in external RAM
-↓
-AXI read engine
-↓
-DMA FIFO
-↓
-AXI write engine
-↓
-Destination region in external RAM
+Source region in external RAM  
+↓  
+AXI read engine  
+↓  
+DMA FIFO  
+↓  
+AXI write engine  
+↓  
+Destination region in external RAM  
 
 ## axi_dma_top_level.sv
 **Summary**: Accepts the DMA command, coordinates both engines, and combines completion/error status
