@@ -33,7 +33,7 @@ AXI write master
   
   
 
-More simply,
+More simply,  
 Source region in external RAM  
 ↓  
 AXI read engine  
