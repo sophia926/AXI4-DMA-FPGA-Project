@@ -29,7 +29,9 @@ Destination memory
 (AXI B response)  
 ↓  
 AXI write master  
-
+  
+  
+  
 
 More simply,
 Source region in external RAM  
